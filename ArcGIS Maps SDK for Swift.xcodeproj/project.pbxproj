@@ -16,7 +16,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		ED3B45CE2994473B00EDA451 /* ArcGIS-Maps-SDK-for-Swift-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "ArcGIS-Maps-SDK-for-Swift-Info.plist"; sourceTree = SOURCE_ROOT; };
 		EDE8112E29930989007535E5 /* ArcGIS Maps SDK for Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ArcGIS Maps SDK for Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDE8113129930989007535E5 /* MainApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainApp.swift; sourceTree = "<group>"; };
 		EDE8113329930989007535E5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -58,7 +57,6 @@
 		EDE8113029930989007535E5 /* ArcGIS Maps SDK for Swift */ = {
 			isa = PBXGroup;
 			children = (
-				ED3B45CE2994473B00EDA451 /* ArcGIS-Maps-SDK-for-Swift-Info.plist */,
 				EDE8113129930989007535E5 /* MainApp.swift */,
 				EDE8113329930989007535E5 /* ContentView.swift */,
 				EDE811352993098B007535E5 /* Assets.xcassets */,
