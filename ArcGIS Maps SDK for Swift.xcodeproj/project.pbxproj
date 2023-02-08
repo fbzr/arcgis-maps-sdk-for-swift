@@ -7,18 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EDE8113229930989007535E5 /* ArcGIS_Maps_SDK_for_SwiftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE8113129930989007535E5 /* ArcGIS_Maps_SDK_for_SwiftApp.swift */; };
+		EDE8113229930989007535E5 /* MainApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE8113129930989007535E5 /* MainApp.swift */; };
 		EDE8113429930989007535E5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE8113329930989007535E5 /* ContentView.swift */; };
 		EDE811362993098B007535E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDE811352993098B007535E5 /* Assets.xcassets */; };
 		EDE811392993098B007535E5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDE811382993098B007535E5 /* Preview Assets.xcassets */; };
+		EDE8114129930BBC007535E5 /* ArcGIS in Frameworks */ = {isa = PBXBuildFile; productRef = EDE8114029930BBC007535E5 /* ArcGIS */; };
+		EDE8114429933C75007535E5 /* ArcGISToolkit in Frameworks */ = {isa = PBXBuildFile; productRef = EDE8114329933C75007535E5 /* ArcGISToolkit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		ED3B45CE2994473B00EDA451 /* ArcGIS-Maps-SDK-for-Swift-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "ArcGIS-Maps-SDK-for-Swift-Info.plist"; sourceTree = SOURCE_ROOT; };
 		EDE8112E29930989007535E5 /* ArcGIS Maps SDK for Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ArcGIS Maps SDK for Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		EDE8113129930989007535E5 /* ArcGIS_Maps_SDK_for_SwiftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcGIS_Maps_SDK_for_SwiftApp.swift; sourceTree = "<group>"; };
+		EDE8113129930989007535E5 /* MainApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainApp.swift; sourceTree = "<group>"; };
 		EDE8113329930989007535E5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		EDE811352993098B007535E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EDE811382993098B007535E5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		EDE81147299443E0007535E5 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +30,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EDE8114429933C75007535E5 /* ArcGISToolkit in Frameworks */,
+				EDE8114129930BBC007535E5 /* ArcGIS in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -35,6 +41,7 @@
 		EDE8112529930989007535E5 = {
 			isa = PBXGroup;
 			children = (
+				EDE81147299443E0007535E5 /* Config.xcconfig */,
 				EDE8113029930989007535E5 /* ArcGIS Maps SDK for Swift */,
 				EDE8112F29930989007535E5 /* Products */,
 			);
@@ -51,7 +58,8 @@
 		EDE8113029930989007535E5 /* ArcGIS Maps SDK for Swift */ = {
 			isa = PBXGroup;
 			children = (
-				EDE8113129930989007535E5 /* ArcGIS_Maps_SDK_for_SwiftApp.swift */,
+				ED3B45CE2994473B00EDA451 /* ArcGIS-Maps-SDK-for-Swift-Info.plist */,
+				EDE8113129930989007535E5 /* MainApp.swift */,
 				EDE8113329930989007535E5 /* ContentView.swift */,
 				EDE811352993098B007535E5 /* Assets.xcassets */,
 				EDE811372993098B007535E5 /* Preview Content */,
@@ -83,6 +91,10 @@
 			dependencies = (
 			);
 			name = "ArcGIS Maps SDK for Swift";
+			packageProductDependencies = (
+				EDE8114029930BBC007535E5 /* ArcGIS */,
+				EDE8114329933C75007535E5 /* ArcGISToolkit */,
+			);
 			productName = "ArcGIS Maps SDK for Swift";
 			productReference = EDE8112E29930989007535E5 /* ArcGIS Maps SDK for Swift.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +123,10 @@
 				Base,
 			);
 			mainGroup = EDE8112529930989007535E5;
+			packageReferences = (
+				EDE8113F29930BBC007535E5 /* XCRemoteSwiftPackageReference "arcgis-maps-sdk-swift" */,
+				EDE8114229933C74007535E5 /* XCRemoteSwiftPackageReference "arcgis-maps-sdk-swift-toolkit" */,
+			);
 			productRefGroup = EDE8112F29930989007535E5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -138,7 +154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EDE8113429930989007535E5 /* ContentView.swift in Sources */,
-				EDE8113229930989007535E5 /* ArcGIS_Maps_SDK_for_SwiftApp.swift in Sources */,
+				EDE8113229930989007535E5 /* MainApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,6 +163,7 @@
 /* Begin XCBuildConfiguration section */
 		EDE8113A2993098B007535E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EDE81147299443E0007535E5 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -207,6 +224,7 @@
 		};
 		EDE8113B2993098B007535E5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EDE81147299443E0007535E5 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -267,8 +285,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ArcGIS Maps SDK for Swift/Preview Content\"";
+				DEVELOPMENT_TEAM = TLWFH95FQH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ArcGIS-Maps-SDK-for-Swift-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -295,8 +315,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ArcGIS Maps SDK for Swift/Preview Content\"";
+				DEVELOPMENT_TEAM = TLWFH95FQH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ArcGIS-Maps-SDK-for-Swift-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -337,6 +359,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EDE8113F29930BBC007535E5 /* XCRemoteSwiftPackageReference "arcgis-maps-sdk-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Esri/arcgis-maps-sdk-swift";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		EDE8114229933C74007535E5 /* XCRemoteSwiftPackageReference "arcgis-maps-sdk-swift-toolkit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Esri/arcgis-maps-sdk-swift-toolkit";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EDE8114029930BBC007535E5 /* ArcGIS */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EDE8113F29930BBC007535E5 /* XCRemoteSwiftPackageReference "arcgis-maps-sdk-swift" */;
+			productName = ArcGIS;
+		};
+		EDE8114329933C75007535E5 /* ArcGISToolkit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EDE8114229933C74007535E5 /* XCRemoteSwiftPackageReference "arcgis-maps-sdk-swift-toolkit" */;
+			productName = ArcGISToolkit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = EDE8112629930989007535E5 /* Project object */;
 }
