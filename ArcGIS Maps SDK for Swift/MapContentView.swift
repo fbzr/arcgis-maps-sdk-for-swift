@@ -9,88 +9,74 @@ import SwiftUI
 import ArcGIS
 import ArcGISToolkit
 
-
-func createMap() -> Map {
-    // EXAMPLE of popup fetched from Portal
-//            let portalItem = PortalItem(
-//                    portal: .arcGISOnline(connection: .anonymous),
-//                    id: Item.ID(rawValue: "9f3a674e998f461580006e626611f9ad")!
-//                )
-//                return Map(item: portalItem)
-    
-    let map = Map(basemapStyle: .arcGISTopographic)
-    map.initialViewpoint = Viewpoint(latitude: 39.90373709732449, longitude: -75.35271102362825, scale: 16_000)
-
-    let featureServiceURL = URL(string: "https://silva.swarthmore.edu/server/rest/services/Plant_Centers/MapServer/0")!
-    let serviceFeatureTable = ServiceFeatureTable(url: featureServiceURL)
-    let plantsLayer = FeatureLayer(featureTable: serviceFeatureTable)
-    plantsLayer.popupsAreEnabled = true
-    
-    let popupFieldAccessionNumber = PopupField()
-    popupFieldAccessionNumber.fieldName = "ACC_NUM_AND_QUAL"
-    popupFieldAccessionNumber.label = "Accession Number"
-    
-    let popupFieldFamily = PopupField()
-    popupFieldFamily.fieldName = "FAMILY_MC"
-    popupFieldFamily.label = "Family"
-    
-    let popupFieldCommonName = PopupField()
-    popupFieldCommonName.fieldName = "COMMON_NAME_PRIMARY"
-    popupFieldCommonName.label = "Common Name"
-
-    let popupDef = PopupDefinition()
-    popupDef.title = "{NAME}"
-    let fieldPopupElement = FieldsPopupElement()
-    fieldPopupElement.addFields([popupFieldAccessionNumber,popupFieldCommonName,popupFieldFamily])
-    fieldPopupElement.title = "Plant Details"
-    
-    popupDef.addElement(fieldPopupElement)
-    
-    plantsLayer.popupDefinition = popupDef
-
-    map.addOperationalLayer(plantsLayer)
-
-    return map
-}
-
 struct MapContentView: View {
-    @StateObject private var map: Map = createMap()
+    private var layers: [Layer]
+    private var map: Map
     
+    init() {
+        layers = createLayers()
+        map = createMap()
+        map.addOperationalLayers(layers)
+    }
+        
     /// The point on the screen the user tapped on to identify a feature.
     @State private var identifyScreenPoint: CGPoint?
-    
     /// The popup to be shown as the result of the layer identify operation.
     @State private var popup: Popup?
-    
     /// A Boolean value specifying whether the popup view should be shown or not.
-    @State private var showPopup = true
-    
+    @State private var showPopup = false
     /// The detent value specifying the initial `FloatingPanelDetent`.  Defaults to "full".
     @State private var floatingPanelDetent: FloatingPanelDetent = .full
     
+    @State var showList = false
+    
+    /// The selected features.
+    @State private var selectedFeatures: [Feature] = []
+    
+    private var featureLayer: FeatureLayer {
+        map.operationalLayers.first as! FeatureLayer
+    }
+        
     var body: some View {
-        MapViewReader { proxy in
+        MapViewReader { mapViewProxy in
             VStack {
+                Button(showList ? "Close Layer List" : "Show Layer List") {
+                    self.showList.toggle()
+                }.padding(.top, 0)
                 MapView(map: map)
                     .onSingleTapGesture { screenPoint, _ in
                         identifyScreenPoint = screenPoint
                     }
                     .task(id: identifyScreenPoint) {
-                        guard let identifyScreenPoint = identifyScreenPoint,
-                              let identifyResult = await Result(awaiting: {
-                                  try await proxy.identifyLayers(
-                                    screenPoint: identifyScreenPoint,
-                                    tolerance: 10,
-                                    returnPopupsOnly: true
-                                  )
-                              })
-                            .cancellationToNil()
-                        else {
-                            return
-                        }
+                        guard let identifyScreenPoint = identifyScreenPoint else { return }
+                        
+                        featureLayer.unselectFeatures(selectedFeatures)
+                        
+                        let identifyResult = await Result(awaiting: {
+                            try await mapViewProxy.identifyLayers(
+                              screenPoint: identifyScreenPoint,
+                              tolerance: 10,
+                              returnPopupsOnly: false,
+                              maximumResultsPerLayer: 1
+                            )
+                            
+                        }).cancellationToNil()
+                        
                         self.identifyScreenPoint = nil
-                        self.popup = try? identifyResult.get().first?.popups.first
+                        let result = try? identifyResult?.get().first
+                        
+                        if (result?.geoElements != nil) {
+                            let features = result?.geoElements as! [Feature]
+                            
+                            selectedFeatures = features
+                            featureLayer.selectFeatures(features)
+                        } else {
+                            selectedFeatures = []
+                        }
+                        
+                        self.popup = result?.popups.first
                         self.showPopup = self.popup != nil
+                        self.showList = false
                     }
                     .floatingPanel(
                         selectedDetent: $floatingPanelDetent,
@@ -105,6 +91,12 @@ struct MapContentView: View {
                         }
                         .padding()
                     }
+                    .floatingPanel(isPresented: $showList) {
+                        List(map.operationalLayers, id: \.self) { item in
+                            Text("\(item.name)")
+                        }
+                        .listStyle(.plain)
+                    }
             }
         }
     }
@@ -115,3 +107,4 @@ struct MapContentView_Previews: PreviewProvider {
         MapContentView()
     }
 }
+

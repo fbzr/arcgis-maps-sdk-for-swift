@@ -14,24 +14,28 @@ struct ContentView: View {
     @AppStorage("selectedTabIndex") var selectedTabIndex: Int = -1
     
     var body: some View {
-            
-                TabView(selection: $selectedTabIndex) {
-                    MapContentView()
-                        .tabItem {
-                            Image(systemName: "map")
-                            Text("Map")
-                        }
-                    SearchView()
-                        .tabItem {
-                            Image(systemName: "magnifyingglass")
-                            Text("Search")
-                        }
-                    LayerListView()
-                        .tabItem {
-                            Image(systemName: "list.star")
-                            Text("Layer List")
-                        }
-                }
+        VStack {
+            TabView(selection: $selectedTabIndex) {
+                MapContentView()
+                    .tabItem {
+                        Image(systemName: "map")
+                        Text("Map")
+                    }
+                SearchView()
+                    .tabItem {
+                        Image(systemName: "magnifyingglass")
+                        Text("Search")
+                    }
+                LayerListView()
+                    .background(Color.gray.opacity(1))
+                    .tabItem {
+                        Image(systemName: "list.star")
+                        Text("Layer List")
+                    }
+                    
+            }
+        }
+          
         
     }
 }
